@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Add Employee</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    </head>
+
+    <body class="add-employee" style="margin-top: 30px; width: 40%;border: 1px solid;padding: 10px 20px;">
+
+        <div style="
+          margin-top: auto;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        ">
+            <h3 style="margin-bottom: 40px; font-weight: bold">Edit Employee</h3>
+            <a href="index.html"> <i class="fa fa-times" aria-hidden="true"></i></a>
+        </div>
+        <form name="editform" action="index.html" onsubmit="submitEdit()">
+            <div class="label">
+                <label for="id">Id</label><br />
+                <input type="number" id="id" name="id" disabled required /><br />
+            </div>
+            <div class="label">
+                <label for="name">Name</label><br />
+                <input type="text" id="name" name="name" value="localStorage.getItem('name')" required /><br />
+            </div>
+            <div class="label">
+                <label for="email">Email</label><br />
+                <input type="email" id="email" name="email" value="" title="Email harus diisi dengan email yang valid."
+                    required /><br />
+            </div>
+            <div class="label">
+                <label for="mobile">Mobile</label><br />
+                <input type="tel" id="mobile" name="mobile" value=""
+                    title="Mobile harus diisi hanya dengan angka." required /><br />
+            </div>
+            <div class="label">
+                <label for="date">Birthdate</label><br />
+                <input type="date" id="birthdate" name="birthdate" value="" required /><br />
+            </div>
+            <div class="label">
+                <label for="address">Address</label><br />
+                <div id="container-address" style="width:70%">
+                    <div id="add-address" style="display: flex; flex-direction: row;width: 100%;">
+                        <input type="text" id="address" name="address" value="" required style="width:100%" />
+                        <button onclick="addAddress()">+</button>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="form-button">
+                <a href="index.html">
+                    <input type="button" value="Cancel" style="margin-right: 10px" /></a>
+
+                <input type="submit" value="Submit" />
+            </div>
+            </div>
+
+
+        </form>
+        <script>
+
+            let id = localStorage.getItem('userId');
+            let name = localStorage.getItem('name');
+            let email = localStorage.getItem('email');
+            let mobile = localStorage.getItem('mobile');
+            let birthdate = localStorage.getItem('birthdate');
+            let address = localStorage.getItem('address');
+            document.getElementById('id').value =id
+            document.getElementById('name').value =name
+            document.getElementById('email').value =email
+            document.getElementById('mobile').value =mobile
+            document.getElementById('birthdate').value =birthdate
+            document.getElementById('address').value =address
+
+            function addAddress() {
+                htmlNode = document.createElement("div");
+                htmlNode.innerHTML =`<div style="display: flex; flex-direction: row;width: 100%;">
+                    <input type="text" name="address${document.querySelector('#container-address').children.length+1}" value="" required style="width:100%" />
+                    <button onclick="deleteAddress(this)">x</button>
+                </div>`;
+                document.querySelector(
+                    "#container-address"
+                ).insertBefore( htmlNode,document.querySelector('#container-address').children[0]);
+            }
+            function deleteAddress(el){
+                el.parentNode.remove();
+            }
+
+            function submitEdit(){
+                let body = {
+                     userId :document.editform.id.value,
+                     name :document.editform.name.value,
+                     email :document.editform.email.value,
+                     mobile :document.editform.mobile.value,
+                     birthdate :document.editform.birthdate.value,
+                     address :document.editform.address.value,
+                }
+
+                const xhr = new XMLHttpRequest();
+                xhr.open("PUT", "http://localhost:3000/employees",true);
+                xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
+                xhr.send(JSON.stringify(body));
+            }
+
+
+        </script>
+
+    </body>
+
+</html>

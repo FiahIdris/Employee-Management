@@ -1,0 +1,57 @@
+html {   height: 100%; }
+body{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin:auto;
+    padding:30px;
+}
+
+table,th,td {
+    padding:5px;
+    border: 1px solid;
+    border-collapse: collapse;
+    text-align: left
+  }
+ 
+
+th{
+    height: 20px;
+}
+
+.label{   
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:100%;
+    margin-bottom:20px;
+}
+
+.row-20{
+    width: 30%;
+}
+
+.delete-input{   
+    display:flex;
+    flex-direction: row;
+    justify-content:left;
+    width:100%;
+    margin-bottom:10px;
+}
+
+
+.label label{
+    width: 30%;
+}
+
+.label input{
+    width:70%;
+    height: 30px;
+}
+.form-button{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
